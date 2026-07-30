@@ -205,6 +205,7 @@ body {
   text-decoration: none;
   color: inherit;
   transition: all 0.3s cubic-bezier(0.23,1,0.32,1);
+  cursor: pointer;
 }
 .claray-card:hover {
   background: rgba(255,255,255,0.08);
@@ -719,9 +720,11 @@ function rebuildProfile(block) {
     row1.appendChild(card);
   });
 
-  /* Row 2: Claray — full width with social buttons */
-  var clarayCard = document.createElement('div');
+  /* Row 2: Claray — full width clickable card */
+  var clarayCard = document.createElement('a');
   clarayCard.className = 'claray-card';
+  clarayCard.href = 'https://claray2.github.io/';
+  clarayCard.target = '_blank';
   clarayCard.innerHTML =
     '<img class="project-img" src="./Claray.png" alt="Claray" />' +
     '<div class="project-info">' +
@@ -729,8 +732,8 @@ function rebuildProfile(block) {
       '<span class="project-desc">Два человека. Одна общая цель</span>' +
     '</div>' +
     '<div class="claray-socials">' +
-      '<a class="claray-social-btn" href="https://discord.gg/DrugCtPr3g" target="_blank" title="Discord">' + DISCORD_SVG + '</a>' +
-      '<a class="claray-social-btn" href="https://t.me/Claray_Disign?direct" target="_blank" title="Telegram">' + TELEGRAM_SVG + '</a>' +
+      '<a class="claray-social-btn" href="https://discord.gg/DrugCtPr3g" target="_blank" title="Discord" onclick="event.stopPropagation()">' + DISCORD_SVG + '</a>' +
+      '<a class="claray-social-btn" href="https://t.me/Claray_Disign?direct" target="_blank" title="Telegram" onclick="event.stopPropagation()">' + TELEGRAM_SVG + '</a>' +
     '</div>';
 
   projects.appendChild(row1);
