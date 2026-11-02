@@ -521,9 +521,9 @@ const DISCORD_SVG = '<svg viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.79
 const SPOTIFY_SVG = '<svg viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>';
 const EMAIL_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 006 0v-1a10 10 0 10-3.92 7.94"/></svg>';
 const GAMES = [
-{ name: 'Sally Face', img: './Sally%20Face.png', url: 'https://store.steampowered.com/app/541570/Sally_Face__Episode_One/' },
-{ name: 'Phasmophobia', img: './Phasmophobia.png', url: 'https://store.steampowered.com/app/739630/Phasmophobia/', small: true },
 { name: 'The Outlast Trials', img: './The%20Outlast%20Trials.png', url: 'https://store.steampowered.com/app/1304930/The_Outlast_Trials/', small: true },
+{ name: 'Outlast 2', img: './Outlast%202.png', url: 'https://store.steampowered.com/app/414700/Outlast_2/' },
+{ name: 'Outlast', img: './Outlast.png', url: 'https://store.steampowered.com/app/238320/Outlast/' },
 { name: 'Minecraft', img: './Minecraft.png', url: 'https://www.minecraft.net/ru-ru/store/minecraft-deluxe-collection-pc' },
 ];
 /* === LOCAL TIME === */
@@ -704,19 +704,19 @@ alert('Email: ' + email);
 <span class="label">Любимые игры</span>
 </div>
 <div class="games-list">
-<a class="game-item" href="https://store.steampowered.com/app/541570/Sally_Face__Episode_One/" target="_blank">
-<img class="game-icon" src="./Sally%20Face.png" alt="Sally Face" />
-<span class="game-title">Sally Face</span>
-<span class="game-link-icon"><svg class="external-link-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></span>
-</a>
-<a class="game-item" href="https://store.steampowered.com/app/739630/Phasmophobia/" target="_blank">
-<img class="game-icon" src="./Phasmophobia.png" alt="Phasmophobia" />
-<span class="game-title" style="font-size:0.7rem;">Phasmophobia</span>
-<span class="game-link-icon"><svg class="external-link-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></span>
-</a>
 <a class="game-item" href="https://store.steampowered.com/app/1304930/The_Outlast_Trials/" target="_blank">
 <img class="game-icon" src="./The%20Outlast%20Trials.png" alt="The Outlast Trials" />
 <span class="game-title" style="font-size:0.7rem;">The Outlast Trials</span>
+<span class="game-link-icon"><svg class="external-link-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></span>
+</a>
+<a class="game-item" href="https://store.steampowered.com/app/414700/Outlast_2/" target="_blank">
+<img class="game-icon" src="./Outlast%202.png" alt="Outlast 2" />
+<span class="game-title">Outlast 2</span>
+<span class="game-link-icon"><svg class="external-link-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></span>
+</a>
+<a class="game-item" href="https://store.steampowered.com/app/238320/Outlast/" target="_blank">
+<img class="game-icon" src="./Outlast.png" alt="Outlast" />
+<span class="game-title">Outlast</span>
 <span class="game-link-icon"><svg class="external-link-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></span>
 </a>
 <a class="game-item" href="https://www.minecraft.net/ru-ru/store/minecraft-deluxe-collection-pc" target="_blank">
