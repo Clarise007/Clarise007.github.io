@@ -447,6 +447,54 @@ opacity: 0;
 transition: opacity 1s ease;
 }
 .page-art.loaded { opacity: 1; }
+/* === BLACK HOLE -> VIEW === */
+.black-hole-link {
+display: block;
+position: relative;
+width: 100%;
+height: 100%;
+text-decoration: none;
+}
+.black-hole-link img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+display: block;
+transition: transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.black-hole-link:hover img { transform: scale(1.05); }
+.black-hole-btn {
+position: absolute;
+right: 14px;
+bottom: 14px;
+display: inline-flex;
+align-items: center;
+gap: 8px;
+padding: 9px 15px;
+border-radius: 100px;
+background: rgba(10, 10, 12, 0.7);
+backdrop-filter: blur(12px);
+-webkit-backdrop-filter: blur(12px);
+border: 1px solid rgba(255, 255, 255, 0.18);
+color: #fff;
+font-family: 'Unbounded', sans-serif !important;
+font-size: 0.7rem;
+letter-spacing: 0.06em;
+text-transform: uppercase;
+white-space: nowrap;
+transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.black-hole-btn svg {
+width: 14px; height: 14px;
+stroke: currentColor; fill: none;
+stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+}
+.black-hole-link:hover .black-hole-btn {
+background: #fff;
+color: #0d0d0f;
+border-color: #fff;
+transform: translateX(2px);
+}
 /* === RESPONSIVE === */
 @media (max-width: 768px) {
 .bento-container {
@@ -764,7 +812,10 @@ alert('Email: ' + email);
 </div>
 <!-- 8: Image -->
 <div class="bento-item" style="grid-column: 4; grid-row: 3; padding: 0; overflow: hidden;">
-<img src="./Black Hole.png" alt="Black Hole" style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--card-radius);" />
+<a class="black-hole-link" href="./view.html" aria-label="Открыть медиатеку">
+<img src="./Black Hole.png" alt="Black Hole" />
+<span class="black-hole-btn">Медиатека<svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+</a>
 </div>
 </div>
 <div class="cat-counter-wrapper" id="catCounter">
