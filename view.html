@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<link rel="icon" type="image/png" href="./Clarise007.png" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Медиатека — Clarise007</title>
+<meta name="description" content="Медиатека Clarise007 — аниме, сериалы, фильмы, альбомы и игры." />
+<style>
+@font-face {
+font-family: 'Unbounded';
+src: url('./Unbounded-VariableFont_wght.ttf') format('truetype');
+font-weight: 200 900;
+font-display: swap;
+}
+@font-face {
+font-family: 'VkSans';
+src: url('./VKSansDisplayDemiBoldFaux.v100.ttf') format('truetype');
+font-weight: 400;
+font-display: swap;
+}
+</style>
+<style>
+* { box-sizing: border-box; }
+body, p, span, div, a, li, input, button, h1, h2, h3, h4, h5, h6 {
+font-family: 'VkSans', sans-serif;
+}
+body {
+background-color: #0d0d0f;
+color: #fff;
+margin: 0;
+min-height: 100vh;
+padding: 1.5rem 2rem 3rem;
+display: flex;
+justify-content: center;
+align-items: flex-start;
+overflow-x: hidden;
+}
+/* === BACKGROUND === */
+.grid-background {
+position: fixed;
+inset: 0;
+pointer-events: none;
+z-index: 0;
+background-image:
+linear-gradient(rgba(50,50,55,0.3) 1px, transparent 1px),
+linear-gradient(90deg, rgba(50,50,55,0.3) 1px, transparent 1px);
+background-size: 50px 50px;
+}
+.grid-background::after {
+content: '';
+position: absolute;
+inset: 0;
+background-image:
+linear-gradient(rgba(120,120,130,0.5) 1.5px, transparent 1.5px),
+linear-gradient(90deg, rgba(120,120,130,0.5) 1.5px, transparent 1.5px);
+background-size: 50px 50px;
+mask-image: radial-gradient(circle 400px at var(--mouse-x,50%) var(--mouse-y,50%), black, transparent);
+-webkit-mask-image: radial-gradient(circle 400px at var(--mouse-x,50%) var(--mouse-y,50%), black, transparent);
+}
+.grid-background::before {
+content: '';
+position: absolute;
+inset: 0;
+background: radial-gradient(circle 500px at var(--mouse-x,50%) var(--mouse-y,50%), rgba(100,100,110,0.15), transparent);
+}
+.page {
+position: relative;
+z-index: 1;
+width: 100%;
+max-width: 1120px;
+margin: 0 auto;
+}
+/* === HEADER === */
+.page-header {
+display: flex;
+align-items: flex-end;
+justify-content: space-between;
+gap: 1rem;
+margin-bottom: 1.25rem;
+padding: 0 0.25rem;
+}
+.back-link {
+display: inline-flex;
+align-items: center;
+gap: 8px;
+font-family: 'Unbounded', sans-serif;
+font-size: 0.72rem;
+letter-spacing: 0.06em;
+text-transform: uppercase;
+color: rgba(255,255,255,0.55);
+text-decoration: none;
+border: 1px solid rgba(255,255,255,0.1);
+background: rgba(255,255,255,0.04);
+padding: 10px 16px;
+border-radius: 100px;
+transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+white-space: nowrap;
+}
+.back-link:hover {
+color: #fff;
+background: rgba(255,255,255,0.1);
+border-color: rgba(255,255,255,0.22);
+transform: translateX(-3px);
+}
+.back-link svg { width: 15px; height: 15px; }
+.page-title {
+font-family: 'Unbounded', sans-serif;
+font-size: clamp(1.8rem, 4vw, 2.6rem);
+font-weight: 800;
+letter-spacing: -0.02em;
+line-height: 1.1;
+margin: 0;
+}
+.page-sub {
+color: rgba(255,255,255,0.45);
+font-size: 0.98rem;
+margin-top: 8px;
+}
+/* === CATEGORY TABS === */
+.tabs-wrap {
+background: rgba(15, 15, 15, 0.6);
+backdrop-filter: blur(24px);
+-webkit-backdrop-filter: blur(24px);
+border: 1px solid rgba(255,255,255,0.08);
+border-radius: 22px;
+padding: 8px;
+margin-bottom: 12px;
+}
+.tabs {
+display: flex;
+gap: 6px;
+overflow-x: auto;
+scrollbar-width: none;
+}
+.tabs::-webkit-scrollbar { display: none; }
+.tab {
+display: inline-flex;
+align-items: center;
+gap: 8px;
+border: 1px solid transparent;
+background: transparent;
+color: rgba(255,255,255,0.55);
+padding: 11px 18px;
+border-radius: 16px;
+cursor: pointer;
+font-family: 'Unbounded', sans-serif;
+font-size: 0.82rem;
+font-weight: 700;
+letter-spacing: 0.02em;
+white-space: nowrap;
+transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+flex-shrink: 0;
+}
+.tab svg {
+width: 17px; height: 17px;
+stroke: currentColor; fill: none;
+stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
+flex-shrink: 0;
+}
+.tab:hover { color: #fff; background: rgba(255,255,255,0.06); }
+.tab.active {
+color: #fff;
+background: rgba(255,255,255,0.12);
+border-color: rgba(255,255,255,0.18);
+box-shadow: 0 2px 16px rgba(0,0,0,0.35);
+}
+.tab-count {
+font-size: 0.68rem;
+font-weight: 600;
+color: rgba(255,255,255,0.45);
+background: rgba(255,255,255,0.07);
+border-radius: 100px;
+padding: 2px 7px;
+}
+.tab.active .tab-count { color: #fff; background: rgba(255,255,255,0.16); }
+/* === DASHBOARD === */
+.dashboard {
+display: grid;
+grid-template-columns: minmax(0, 1fr) 300px;
+gap: 12px;
+align-items: start;
+}
+.panel {
+background: rgba(15, 15, 15, 0.6);
+backdrop-filter: blur(24px);
+-webkit-backdrop-filter: blur(24px);
+border: 1px solid rgba(255,255,255,0.08);
+border-radius: 24px;
+padding: 1.25rem;
+}
+.panel-title {
+display: flex;
+align-items: center;
+gap: 8px;
+font-family: 'Unbounded', sans-serif;
+font-size: 0.68rem;
+letter-spacing: 0.1em;
+text-transform: uppercase;
+color: rgba(255,255,255,0.5);
+margin-bottom: 1rem;
+}
+.panel-title svg {
+width: 16px; height: 16px;
+stroke: #fff; fill: none; stroke-width: 1.5;
+stroke-linecap: round; stroke-linejoin: round;
+}
+/* === CARDS === */
+.cards {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(172px, 1fr));
+gap: 12px;
+}
+.media-card {
+background: rgba(255,255,255,0.04);
+border: 1px solid rgba(255,255,255,0.06);
+border-radius: 20px;
+overflow: hidden;
+text-decoration: none;
+color: inherit;
+display: flex;
+flex-direction: column;
+transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+animation: cardIn 0.55s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+@keyframes cardIn {
+from { opacity: 0; transform: translateY(16px) scale(0.97); }
+to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.media-card[data-href] { cursor: pointer; }
+.media-card.is-square .media-cover { aspect-ratio: 1 / 1; }
+.media-card.is-square .media-cover::after { display: none; }
+.cards.square-cards { grid-template-columns: repeat(auto-fill, minmax(184px, 1fr)); }
+/* игры — вертикальные баннеры: карточки уже и выше остальных */
+.cards.game-cards { grid-template-columns: repeat(auto-fill, minmax(146px, 1fr)); gap: 14px; }
+.media-card.is-banner .media-cover { aspect-ratio: 2 / 3; }
+.dashboard.solo { grid-template-columns: minmax(0, 1fr); }
+.media-card:hover {
+background: rgba(255,255,255,0.07);
+border-color: rgba(255,255,255,0.16);
+transform: translateY(-4px);
+box-shadow: 0 10px 28px rgba(0,0,0,0.4);
+}
+.media-cover {
+position: relative;
+aspect-ratio: 3 / 4;
+overflow: hidden;
+background:
+radial-gradient(circle at 30% 20%, hsla(var(--hue), 70%, 62%, 0.85), transparent 62%),
+radial-gradient(circle at 78% 82%, hsla(calc(var(--hue) + 55), 65%, 48%, 0.8), transparent 60%),
+linear-gradient(160deg, hsl(var(--hue), 38%, 20%), hsl(calc(var(--hue) + 40), 32%, 9%));
+}
+.media-cover::after {
+content: '';
+position: absolute;
+inset: 0;
+background:
+repeating-linear-gradient(115deg, rgba(255,255,255,0.05) 0 1px, transparent 1px 14px),
+linear-gradient(to top, rgba(0,0,0,0.55), transparent 55%);
+}
+.cover-glyph {
+position: absolute;
+inset: 0;
+display: flex;
+align-items: center;
+justify-content: center;
+color: rgba(255,255,255,0.35);
+z-index: 1;
+}
+.cover-glyph svg {
+width: 46%; height: 46%;
+stroke: currentColor; fill: none;
+stroke-width: 1.1; stroke-linecap: round; stroke-linejoin: round;
+}
+.media-cover img {
+position: absolute;
+inset: 0;
+width: 100%;
+height: 100%;
+object-fit: cover;
+z-index: 2;
+transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.media-cover img.is-icon {
+object-fit: contain;
+padding: 22%;
+}
+.media-cover img.cover-img {
+opacity: 0;
+transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.media-cover img.cover-img.loaded { opacity: 1; }
+.media-card:hover .media-cover img { transform: scale(1.06); }
+.media-status {
+position: absolute;
+left: 10px;
+bottom: 10px;
+z-index: 3;
+display: inline-flex;
+align-items: center;
+gap: 6px;
+padding: 5px 11px;
+border-radius: 100px;
+background: rgba(10,10,12,0.72);
+backdrop-filter: blur(10px);
+-webkit-backdrop-filter: blur(10px);
+border: 1px solid rgba(255,255,255,0.14);
+font-size: 0.72rem;
+color: rgba(255,255,255,0.9);
+white-space: nowrap;
+}
+.status-dot {
+width: 6px; height: 6px; border-radius: 50%;
+flex-shrink: 0;
+}
+.media-body {
+padding: 12px 14px 14px;
+display: flex;
+flex-direction: column;
+gap: 4px;
+min-width: 0;
+}
+.media-title {
+font-family: 'Unbounded', sans-serif;
+font-size: 0.86rem;
+font-weight: 700;
+line-height: 1.3;
+color: #fff;
+}
+.media-meta {
+font-size: 0.82rem;
+color: rgba(255,255,255,0.42);
+line-height: 1.35;
+}
+
+/* === SIDEBAR === */
+.sidebar { position: sticky; top: 2rem; }
+.status-list { display: flex; flex-direction: column; gap: 6px; }
+.status-btn {
+display: flex;
+align-items: center;
+gap: 10px;
+width: 100%;
+padding: 11px 13px;
+border-radius: 14px;
+border: 1px solid transparent;
+background: rgba(255,255,255,0.04);
+color: rgba(255,255,255,0.62);
+cursor: pointer;
+font-size: 0.95rem;
+text-align: left;
+transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.status-btn:hover { background: rgba(255,255,255,0.09); color: #fff; }
+.status-btn.active {
+background: rgba(255,255,255,0.13);
+border-color: rgba(255,255,255,0.2);
+color: #fff;
+}
+.status-btn .status-dot { width: 7px; height: 7px; }
+.status-name { flex: 1; min-width: 0; }
+.status-count {
+font-family: 'Unbounded', sans-serif;
+font-size: 0.7rem;
+color: rgba(255,255,255,0.4);
+font-variant-numeric: tabular-nums;
+}
+.status-btn.active .status-count { color: rgba(255,255,255,0.85); }
+/* === EMPTY === */
+.empty {
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+gap: 8px;
+padding: 4rem 1rem;
+text-align: center;
+color: rgba(255,255,255,0.35);
+}
+.empty svg {
+width: 40px; height: 40px;
+stroke: rgba(255,255,255,0.25); fill: none;
+stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round;
+}
+.empty-title {
+font-family: 'Unbounded', sans-serif;
+font-size: 0.9rem;
+color: rgba(255,255,255,0.55);
+}
+/* === RESPONSIVE === */
+@media (max-width: 900px) {
+body { padding: 1.25rem 1.25rem 2rem; }
+.dashboard { grid-template-columns: 1fr; }
+.sidebar { position: static; order: -1; }
+.status-list {
+flex-direction: row;
+flex-wrap: wrap;
+gap: 6px;
+}
+.status-btn { width: auto; flex: 1 1 128px; }
+}
+@media (max-width: 600px) {
+body { padding: 1rem 0.75rem; }
+.page-header { flex-direction: column; align-items: flex-start; gap: 14px; }
+.cards { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
+.panel { padding: 1rem; border-radius: 20px; }
+.media-title { font-size: 0.78rem; }
+}
+</style>
+</head>
+<body>
+<div class="grid-background"></div>
+<div class="page">
+<header class="page-header">
+<div>
+<h1 class="page-title">Медиатека</h1>
+<div class="page-sub">Аниме, сериалы, фильмы, альбомы и игры — что просмотрено, прослушано и пройдено</div>
+</div>
+<a class="back-link" href="./index.html">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+На главную
+</a>
+</header>
+
+<div class="tabs-wrap">
+<nav class="tabs" id="tabs"></nav>
+</div>
+
+<div class="dashboard">
+<main class="panel">
+<div class="panel-title" id="panelTitle">
+<svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/></svg>
+<span id="panelTitleText">Аниме</span>
+</div>
+<div class="cards" id="cards"></div>
+</main>
+<aside>
+<div class="sidebar">
+<div class="panel">
+<div class="panel-title">
+<svg viewBox="0 0 24 24"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+Статусы
+</div>
+<div class="status-list" id="statusList"></div>
+</div>
+</div>
+</aside>
+</div>
+</div>
+
+<script>
+/* === ICONS === */
+const ICONS = {
+anime: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="9" cy="10" r="1"/><circle cx="15" cy="10" r="1"/><path d="M8.5 15c1 1.2 2.2 1.8 3.5 1.8s2.5-.6 3.5-1.8"/><path d="M4.5 8.5L3 6l2.8.6"/><path d="M19.5 8.5L21 6l-2.8.6"/></svg>',
+series: '<svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="13" rx="2"/><line x1="8" y1="2.5" x2="12" y2="6"/><line x1="16" y1="2.5" x2="12" y2="6"/><polygon points="10 10.5 15 12.5 10 14.5"/></svg>',
+movies: '<svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><line x1="7" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="17" y2="20"/><line x1="2" y1="12" x2="7" y2="12"/><line x1="17" y1="12" x2="22" y2="12"/></svg>',
+playlists: '<svg viewBox="0 0 24 24"><path d="M9 17V5l10-2v12"/><circle cx="6.5" cy="17" r="2.5"/><circle cx="16.5" cy="15" r="2.5"/></svg>',
+games: '<svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="4"/><line x1="7" y1="10" x2="7" y2="14"/><line x1="5" y1="12" x2="9" y2="12"/><circle cx="16" cy="10" r="1"/><circle cx="18" cy="12" r="1"/></svg>',
+link: '<svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>',
+empty: '<svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="15" x2="16" y2="15"/></svg>'
+};
+
+/* === STATUS COLORS === */
+const STATUS_COLORS = ['#4ade80', '#fbbf24', '#818cf8', '#f472b6', '#22d3ee'];
+
+/* === CATEGORIES === */
+const CATEGORIES = [
+  { id: 'movies', name: 'Фильмы',  statuses: ['Просмотрено', 'В процессе', 'В планах'] },
+  { id: 'series', name: 'Сериалы', statuses: ['Просмотрено', 'В процессе', 'В планах'] },
+  { id: 'anime',  name: 'Аниме',   statuses: ['Просмотрено', 'Смотрю', 'В планах'] },
+  { id: 'games',  name: 'Игры',    statuses: ['Пройдено', 'Прохожу', 'Играю', 'Играла', 'Планирую'] },
+  { id: 'playlists', name: 'Плейлисты', statuses: [] }
+];
+
+/* === CONTENT ===
+   c — категория: movies / series / anime / games / playlists
+   t — название, y — год (пишется в скобках), s — статус:
+       0 — просмотрено / прослушано / пройдено, 1 — в процессе, 2 — в планах
+   (у плейлистов статусов нет — s не пишется)
+   q — (необязательно) точное название статьи в Википедии для постера
+   img — (необязательно) своя картинка или путь к ней, icon: true — для логотипов,
+         sq: true — для квадратных обложек, link — своя ссылка (открывается по клику)
+   Порядок в списке не важен: карточки сортируются по алфавиту сами. */
+const MEDIA = [
+  /* --- ФИЛЬМЫ --- */
+  { c: 'movies', t: 'Fight Club', y: '1999', s: 0 },
+  { c: 'movies', t: '(500) Days of Summer', y: '2009', s: 0 },
+  { c: 'movies', t: '1+1', y: '2011', s: 0, q: 'Intouchables' },
+  { c: 'movies', t: 'Aladdin', y: '1992', s: 0, q: 'Aladdin (1992 Disney film)' },
+  { c: 'movies', t: 'Beauty and the Beast', y: '1991', s: 0, q: 'Beauty and the Beast (1991 film)' },
+  { c: 'movies', t: 'Borat', y: '2006', s: 0 },
+  { c: 'movies', t: 'Bridge to Terabithia', y: '2007', s: 0, q: 'Bridge to Terabithia (2007 film)' },
+  { c: 'movies', t: 'Cinderella', y: '1950', s: 0, q: 'Золушка (мультфильм, 1950)' },
+  { c: 'movies', t: 'Dumbo', y: '1941', s: 0, q: 'Dumbo (1941 film)' },
+  { c: 'movies', t: 'Final Destination', y: '2000', s: 0, q: 'Final Destination (film)' },
+  { c: 'movies', t: 'Final Destination 2', y: '2003', s: 0 },
+  { c: 'movies', t: 'Final Destination 3', y: '2006', s: 0 },
+  { c: 'movies', t: 'The Final Destination', y: '2009', s: 0 },
+  { c: 'movies', t: 'Final Destination 5', y: '2011', s: 0 },
+  { c: 'movies', t: 'Final Destination: Bloodlines', y: '2025', s: 0, q: 'Final Destination Bloodlines' },
+  { c: 'movies', t: 'Frozen', y: '2013', s: 0, q: 'Frozen (2013 film)' },
+  { c: 'movies', t: 'Frozen II', y: '2019', s: 0 },
+  { c: 'movies', t: 'The Green Mile', y: '1999', s: 0, q: 'The Green Mile (film)' },
+  { c: 'movies', t: 'The Incredible Hulk', y: '2008', s: 0, q: 'The Incredible Hulk (film)' },
+  { c: 'movies', t: 'Inside Out', y: '2015', s: 0, q: 'Inside Out (2015 film)' },
+  { c: 'movies', t: 'Interstellar', y: '2014', s: 0, q: 'Interstellar (film)' },
+  { c: 'movies', t: 'Iron Man', y: '2008', s: 0, q: 'Iron Man (2008 film)' },
+  { c: 'movies', t: 'It', y: '2017', s: 0, q: 'It (2017 film)' },
+  { c: 'movies', t: 'It Chapter Two', y: '2019', s: 0 },
+  { c: 'movies', t: 'The Lion King', y: '1994', s: 0 },
+  { c: 'movies', t: 'The Little Mermaid', y: '1989', s: 0, q: 'The Little Mermaid (1989 film)' },
+  { c: 'movies', t: 'Moana', y: '2016', s: 0, q: 'Moana (2016 film)' },
+  { c: 'movies', t: 'My Little Pony: The Movie', y: '2017', s: 0, q: 'My Little Pony: The Movie (2017 film)' },
+  { c: 'movies', t: 'My Little Pony: Equestria Girls', y: '2013', s: 0 },
+  { c: 'movies', t: 'My Little Pony: Equestria Girls – Rainbow Rocks', y: '2014', s: 0 },
+  { c: 'movies', t: 'My Little Pony: Equestria Girls – Friendship Games', y: '2015', s: 0 },
+  { c: 'movies', t: 'My Little Pony: Equestria Girls – Legend of Everfree', y: '2016', s: 0 },
+  { c: 'movies', t: 'The Ring', y: '2002', s: 0, q: 'The Ring (2002 film)' },
+  { c: 'movies', t: 'Scream', y: '1996', s: 0, q: 'Scream (1996 film)' },
+  { c: 'movies', t: 'Sing', y: '2016', s: 0, q: 'Sing (2016 American film)' },
+  { c: 'movies', t: 'Snow White and the Seven Dwarfs', y: '1937', s: 0, q: 'Белоснежка и семь гномов (мультфильм)' },
+  { c: 'movies', t: 'Spider-Man: Homecoming', y: '2017', s: 0 },
+  { c: 'movies', t: 'Spider-Man: Into the Spider-Verse', y: '2018', s: 0 },
+  { c: 'movies', t: 'Spider-Man: Across the Spider-Verse', y: '2023', s: 0 },
+  { c: 'movies', t: 'Tangled', y: '2010', s: 0 },
+  { c: 'movies', t: 'Ted', y: '2012', s: 0, q: 'Ted (film)' },
+  { c: 'movies', t: 'Terrifier', y: '2016', s: 0 },
+  { c: 'movies', t: 'Terrifier 2', y: '2022', s: 0 },
+  { c: 'movies', t: 'Terrifier 3', y: '2024', s: 0 },
+  { c: 'movies', t: 'Toy Story', y: '1995', s: 0 },
+  { c: 'movies', t: 'Toy Story 2', y: '1999', s: 0 },
+  { c: 'movies', t: 'Toy Story 3', y: '2010', s: 0 },
+  { c: 'movies', t: 'Twilight', y: '2008', s: 0, q: 'Twilight (2008 film)' },
+  { c: 'movies', t: 'Unfriended', y: '2014', s: 0 },
+  { c: 'movies', t: 'Unfriended: Dark Web', y: '2018', s: 0 },
+  { c: 'movies', t: 'WALL·E', y: '2008', s: 0, q: 'WALL-E' },
+  { c: 'movies', t: 'The Wolf of Wall Street', y: '2013', s: 0, q: 'The Wolf of Wall Street (2013 film)' },
+  { c: 'movies', t: 'Zootopia', y: '2016', s: 0 },
+  { c: 'movies', t: 'Кухня в Париже', y: '2014', s: 0 },
+  { c: 'movies', t: 'Кухня. Последняя битва', y: '2017', s: 0 },
+  { c: 'movies', t: 'Отель Белград', y: '2020', s: 0 },
+
+  /* --- СЕРИАЛЫ --- */
+  { c: 'series', t: '13 Reasons Why', y: '2017', s: 2 },
+  { c: 'series', t: 'Better Call Saul', y: '2015', s: 2 },
+  { c: 'series', t: 'Breaking Bad', y: '2008', s: 2 },
+  { c: 'series', t: 'Gravity Falls', y: '2012', s: 0 },
+  { c: 'series', t: 'Hazbin Hotel', y: '2024', s: 0 },
+  { c: 'series', t: 'Helluva Boss', y: '2019', s: 0 },
+  { c: 'series', t: 'Mr. Robot', y: '2015', s: 0 },
+  { c: 'series', t: 'My Little Pony: Friendship Is Magic', y: '2010', s: 0 },
+  { c: 'series', t: 'Scooby-Doo, Where Are You!', y: '1969', s: 0 },
+  { c: 'series', t: 'Squid Game', y: '2021', s: 0 },
+  { c: 'series', t: 'Stranger Things', y: '2016', s: 0 },
+  { c: 'series', t: 'The Boys', y: '2019', s: 0, q: 'The Boys (TV series)' },
+  { c: 'series', t: 'The Last of Us', y: '2023', s: 2, q: 'Одни из нас (телесериал)' },
+  { c: 'series', t: 'Vlad Cool Cars', y: '2026', s: 0, img: 'https://i.ibb.co/xK9Mm8jp/Screenshot-2026-11-19-220156.png', link: 'https://www.imdb.com/title/tt49615116/' },
+  { c: 'series', t: 'Wayne', y: '2019', s: 2, q: 'Wayne (TV series)' },
+  { c: 'series', t: 'Wednesday', y: '2022', s: 0, q: 'Wednesday (TV series)' },
+  { c: 'series', t: 'Welcome to Derry', y: '2025', s: 0 },
+  { c: 'series', t: 'Young Sheldon', y: '2017', s: 2 },
+  { c: 'series', t: 'Интерны', y: '2010', s: 0 },
+  { c: 'series', t: 'Кухня', y: '2012', s: 0, q: 'Кухня (телесериал)' },
+  { c: 'series', t: 'Кухня. Война за отель', y: '2019', s: 0 },
+  { c: 'series', t: 'Отель Элеон', y: '2016', s: 0 },
+
+  /* --- АНИМЕ --- */
+  { c: 'anime', t: 'Mahou Shoujo ni Akogarete', y: '2024', s: 0, img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9cdAhP_g9tbRHRqq0cBgDEganIhB5hsC_P4E7McI530-RhhCgLgAjEHQ&s=10', link: 'https://animix.lol/anime/3571/' },
+  { c: 'anime', t: 'Mahou Shoujo ni Akogarete 2', y: 'анонс', s: 2, img: 'https://media.kitsu.app/anime/49270/poster_image/large-90d2a9ce9e2b01bf5f236af88549b9d7.jpeg', nolink: true },
+  { c: 'anime', t: 'Panty & Stocking with Garterbelt', y: '2010', s: 0, link: 'https://animix.lol/anime/3886/' },
+
+  /* --- ИГРЫ
+     a — Steam appid: из него строится ссылка на магазин и вертикальный баннер
+        (library_600x900), поэтому url вручную не дублируем
+     y — год выхода по странице Steam (у Deadlock её ещё нет — TBA)
+     img — только для игр, у которых нет старого адреса обложки: URL берётся
+        из Steam IStoreBrowseService (hashed library capsule) */
+
+  /* Пройдено */
+  { c: 'games', t: 'Schedule I', s: 0, y: '2025', a: 3164500 },
+  { c: 'games', t: 'House Flipper 2', s: 0, y: '2023', a: 1190970 },
+  { c: 'games', t: 'The Forest', s: 0, y: '2018', a: 242760 },
+  { c: 'games', t: 'Sons of the Forest', s: 0, y: '2024', a: 1326470 },
+  { c: 'games', t: 'Voidtrain', s: 0, y: '2025', a: 1159690, img: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1159690/4efaa1c00e0471f0e8b415b09db3f2c038ba8704/library_capsule.jpg' },
+  { c: 'games', t: 'Youtubers Life', s: 0, y: '2017', a: 428690 },
+  { c: 'games', t: 'House Builder', s: 0, y: '2024', a: 1244630 },
+  { c: 'games', t: 'Slime Rancher', s: 0, y: '2017', a: 433340 },
+  { c: 'games', t: 'Subnautica', s: 0, y: '2018', a: 264710 },
+  { c: 'games', t: 'Portal 2', s: 0, y: '2011', a: 620 },
+  { c: 'games', t: 'House Flipper', s: 0, y: '2018', a: 613100 },
+  { c: 'games', t: 'Sally Face', s: 0, y: '2016', a: 541570 },
+  { c: 'games', t: 'Poppy Playtime', s: 0, y: '2021', a: 1721470 },
+  { c: 'games', t: 'Subnautica 2', s: 0, y: '2026', a: 1962700, img: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1962700/bd66bf4a6db518e15573284aa4030d1f9e1f364d/library_600x900.jpg' },
+  { c: 'games', t: 'Hotel Renovator', s: 0, y: '2023', a: 1214470 },
+  { c: 'games', t: 'Cuphead', s: 0, y: '2017', a: 268910 },
+  { c: 'games', t: 'Vacation Simulator', s: 0, y: '2019', a: 726830 },
+  { c: 'games', t: 'Outlast', s: 0, y: '2013', a: 238320 },
+  { c: 'games', t: 'MiSide', s: 0, y: '2024', a: 2527500 },
+  { c: 'games', t: 'Outlast 2', s: 0, y: '2017', a: 414700 },
+  { c: 'games', t: "No, I'm not a Human", s: 0, y: '2025', a: 3180070, img: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3180070/463354a2b81d416ddb538aa80fe65c75d0e4dcea/library_600x900.jpg' },
+  { c: 'games', t: 'Satisfactory', s: 0, y: '2024', a: 526870 },
+  { c: 'games', t: 'Stray', s: 0, y: '2022', a: 1332010 },
+  { c: 'games', t: 'Fran Bow', s: 0, y: '2015', a: 362680 },
+  { c: 'games', t: 'Raft', s: 0, y: '2022', a: 648800 },
+  { c: 'games', t: 'Hello Neighbor', s: 0, y: '2017', a: 521890 },
+  { c: 'games', t: 'Music Racer', s: 0, y: '2018', a: 893030 },
+  { c: 'games', t: 'Portal', s: 0, y: '2007', a: 400 },
+  { c: 'games', t: 'Helltaker', s: 0, y: '2020', a: 1289310 },
+  { c: 'games', t: 'Rick and Morty: Virtual Rick-ality', s: 0, y: '2017', a: 469610 },
+  { c: 'games', t: 'Job Simulator', s: 0, y: '2016', a: 448280 },
+  { c: 'games', t: 'An alt girl for skoof', s: 0, y: '2024', a: 2901520, img: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2901520/775153346b5e6a9f45abb1985a0f974e851d9fe0/library_capsule.jpg' },
+  { c: 'games', t: 'Prison Boss VR', s: 0, y: '2017', a: 673600 },
+  { c: 'games', t: 'Organized Inside', s: 0, y: '2025', a: 3609750, img: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3609750/077687066ce4244b9396fa4b47164939d91d9035/library_600x900.jpg' },
+  { c: 'games', t: 'Barro F', s: 0, y: '2020', a: 1239260 },
+  { c: 'games', t: 'Barro 2020', s: 0, y: '2019', a: 1168660 },
+  { c: 'games', t: 'Barro 22', s: 0, y: '2021', a: 1797610 },
+  { c: 'games', t: 'Barro F22', s: 0, y: '2022', a: 1958600, img: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1958600/b11cd3939b1589889e5ca166f0eafea9e22884db/library_600x900.jpg' },
+  { c: 'games', t: 'Barro GT', s: 0, y: '2022', a: 1990740 },
+  { c: 'games', t: 'Barro Racing', s: 0, y: '2020', a: 1307090 },
+  { c: 'games', t: 'Barro T23', s: 0, y: '2023', a: 2379030 },
+  { c: 'games', t: 'Barro F25', s: 0, y: '2025', a: 3626800, img: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3626800/64f88d65a25687cabf55dec934fc3f9aa3ee5c7b/library_600x900.jpg' },
+  { c: 'games', t: 'Barro 2024', s: 0, y: '2024', a: 3119720 },
+  { c: 'games', t: 'Miss Neko: Pirates', s: 0, y: '2024', a: 2695270 },
+  { c: 'games', t: 'Amanda the Adventurer', s: 0, y: '2023', a: 2166060 },
+  { c: 'games', t: 'Milk outside a bag of milk outside a bag of milk', s: 0, y: '2021', a: 1604000 },
+  { c: 'games', t: 'Storyteller', s: 0, y: '2023', a: 1624540 },
+  { c: 'games', t: 'Miss Neko 3', s: 0, y: '2022', a: 2022180 },
+  /* Fears to Fathom — все эпизоды Rayll отдельно, по порядку выхода */
+  { c: 'games', t: 'Fears to Fathom - Home Alone', s: 0, y: '2021', a: 1671340 },
+  { c: 'games', t: 'Fears to Fathom - Norwood Hitchhike', s: 0, y: '2022', a: 1763050 },
+  { c: 'games', t: 'Fears to Fathom - Carson House', s: 0, y: '2023', a: 2120900 },
+  { c: 'games', t: 'Fears to Fathom - Ironbark Lookout', s: 0, y: '2023', a: 2506160 },
+  { c: 'games', t: 'Fears to Fathom - Woodbury Getaway', s: 0, y: '2024', a: 2961530 },
+  { c: 'games', t: 'Fears to Fathom - Scratch Creek', s: 0, y: '2026', a: 4121170, img: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/4121170/fc4bb0a814cedd55d33dd0ca32ce5f54864e7f3a/library_capsule.jpg' },
+  { c: 'games', t: 'The Baby in Yellow', s: 0, y: '2023', a: 2291340 },
+  { c: 'games', t: 'Hozy', s: 0, y: '2026', a: 3326230, img: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3326230/39d05ca20f3a2c0e6694458042df2a4e87c781b5/library_capsule.jpg' },
+  { c: 'games', t: 'Melatonin', s: 0, y: '2022', a: 1585220 },
+  { c: 'games', t: 'Shave & Stuff', s: 0, y: '2024', a: 2195400 },
+  { c: 'games', t: 'The Stanley Parable: Ultra Deluxe', s: 0, y: '2022', a: 1703340 },
+  { c: 'games', t: 'Milk inside a bag of milk inside a bag of milk', s: 0, y: '2020', a: 1392820 },
+  { c: 'games', t: 'Undertale', s: 0, y: '2015', a: 391540 },
+  { c: 'games', t: 'Purple Place', s: 0, y: '2023', a: 1117090 },
+  { c: 'games', t: 'Miss Neko', s: 0, y: '2019', a: 1101450 },
+
+  /* Прохожу */
+  { c: 'games', t: 'Scrap Mechanic', s: 1, y: '2016', a: 387990 },
+  { c: 'games', t: 'Icarus', s: 1, y: '2021', a: 1149460 },
+  { c: 'games', t: 'Moon Sweepers', s: 1, y: '2026', a: 5335510, img: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/5335510/b11598a928ea1ac19bfa83eec2ab071a93ec7313/library_capsule.jpg' },
+  { c: 'games', t: 'Palworld', s: 1, y: '2024', a: 1623730, img: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1623730/f85c38b444047c686d44eea5f649c9ae761fd06a/library_capsule.jpg' },
+
+  /* Играю */
+  { c: 'games', t: 'Deadlock', s: 2, y: 'TBA', a: 1422450 },
+  { c: 'games', t: 'The Outlast Trials', s: 2, y: '2024', a: 1304930, img: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1304930/b511ed32e00d90a15e6d1bf7861fe88f0cdde5db/library_capsule.jpg' },
+
+  /* Играла */
+  { c: 'games', t: 'Counter-Strike 2', s: 3, y: '2023', a: 730 },
+  { c: 'games', t: 'Valorant', s: 3, y: '2020', link: 'https://playvalorant.com/' },
+  { c: 'games', t: 'Phasmophobia', s: 3, y: '2020', a: 739630 },
+  { c: 'games', t: 'PEAK', s: 3, y: '2025', a: 3527290, img: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3527290/480bd879ac737921bfa2529a6fea15961267ad21/library_600x900.jpg' },
+  { c: 'games', t: 'Stardew Valley', s: 3, y: '2016', a: 413150 },
+  { c: 'games', t: 'R.E.P.O.', s: 3, y: '2025', a: 3241660 },
+  { c: 'games', t: 'Content Warning', s: 3, y: '2024', a: 2881650 },
+  { c: 'games', t: 'Dark Hours', s: 3, y: '2025', a: 2208570 },
+  { c: 'games', t: 'Human Fall Flat', s: 3, y: '2016', a: 477160 },
+  { c: 'games', t: 'Euro Truck Simulator 2', s: 3, y: '2012', a: 227300 },
+  { c: 'games', t: 'The Sims 4', s: 3, y: '2014', a: 1222670 },
+  { c: 'games', t: 'Geometry Dash', s: 3, y: '2014', a: 322170 },
+  { c: 'games', t: 'The Headliners', s: 3, y: '2025', a: 3059070, img: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3059070/eafcfab6ae1fd425c04cf41fd6617060fd3ac9b6/library_600x900.jpg' },
+  { c: 'games', t: 'Lethal Company', s: 3, y: '2023', a: 1966720 },
+  { c: 'games', t: 'RV There Yet?', s: 3, y: '2025', a: 3949040, img: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3949040/701632e4a84f8378c23fdf18ae127cb6a0f3f904/library_capsule.jpg' },
+  { c: 'games', t: 'PC Building Simulator', s: 3, y: '2019', a: 621060 },
+  { c: 'games', t: 'People Playground', s: 3, y: '2019', a: 1118200 },
+  { c: 'games', t: "That's not my Neighbor", s: 3, y: '2025', a: 3431040 },
+  { c: 'games', t: 'Among Us', s: 3, y: '2018', a: 945360 },
+  { c: 'games', t: 'Ranch Simulator', s: 3, y: '2023', a: 1119730 },
+  { c: 'games', t: 'Hired Ops', s: 3, y: '2021', a: 374280 },
+  { c: 'games', t: 'Stumble Guys', s: 3, y: '2021', a: 1677740 },
+  { c: 'games', t: 'Project: Playtime', s: 3, y: '2022', a: 1961460 },
+  { c: 'games', t: 'One-armed cook', s: 3, y: '2022', a: 1977530 },
+  { c: 'games', t: 'Fruit Ninja VR', s: 3, y: '2016', a: 486780 },
+  { c: 'games', t: 'Gamble With Your Friends', s: 3, y: '2026', a: 3892270, img: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3892270/aae0d37eb09a4e20706805e0db735fbbe04ecd15/library_capsule.jpg' },
+  { c: 'games', t: 'Hotline Miami', s: 3, y: '2012', a: 219150 },
+  { c: 'games', t: 'Fallout Shelter', s: 3, y: '2017', a: 588430 },
+  { c: 'games', t: "Don't Starve Together", s: 3, y: '2016', a: 322330 },
+  { c: 'games', t: 'Goat Simulator', s: 3, y: '2014', a: 265930 },
+  { c: 'games', t: 'BeamNG.drive', s: 3, y: '2015', a: 284160 },
+  { c: 'games', t: 'Muck', s: 3, y: '2021', a: 1625450 },
+  { c: 'games', t: 'Terraria', s: 3, y: '2011', a: 105600 },
+  { c: 'games', t: 'One-armed robber', s: 3, y: '2023', a: 2551020 },
+  { c: 'games', t: 'Tiny Eden', s: 3, y: '2026', a: 3375110, img: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3375110/489df5536cd98813184b2c5bb1b48298d1b990e5/library_capsule.jpg' },
+  { c: 'games', t: 'Cities: Skylines', s: 3, y: '2015', a: 255710 },
+  { c: 'games', t: 'MIMESIS', s: 3, y: '2025', a: 2827200 },
+  { c: 'games', t: 'Teardown', s: 3, y: '2022', a: 1167630 },
+  { c: 'games', t: 'Left 4 Dead 2', s: 3, y: '2009', a: 550 },
+  { c: 'games', t: 'Sky: Children of the Light', s: 3, y: '2024', a: 2325290 },
+  { c: 'games', t: 'WooLoop', s: 3, y: '2023', a: 1878910 },
+  { c: 'games', t: 'Fishing Planet', s: 3, y: '2015', a: 380600 },
+  { c: 'games', t: 'Streamer Life Simulator 2', s: 3, y: '2026', a: 2890830 },
+  { c: 'games', t: 'POSTAL 2', s: 3, y: '2012', a: 223470 },
+  { c: 'games', t: 'Amanda the Adventurer 2', s: 3, y: '2024', a: 2826800 },
+  { c: 'games', t: 'Anger Foot', s: 3, y: '2024', a: 1978590 },
+  { c: 'games', t: "No Man's Sky", s: 3, y: '2016', a: 275850 },
+  { c: 'games', t: 'Supermarket Simulator', s: 3, y: '2025', a: 2670630 },
+  { c: 'games', t: "Garry's Mod", s: 3, y: '2006', a: 4000 },
+  { c: 'games', t: 'Rec Room', s: 3, y: '2021', a: 471710 },
+  { c: 'games', t: 'My Summer Car', s: 3, y: '2016', a: 516750 },
+  { c: 'games', t: 'Hunt: Showdown 1896', s: 3, y: '2019', a: 594650 },
+  { c: 'games', t: 'Human Fall Flat VR', s: 3, y: '2024', a: 2777220 },
+  { c: 'games', t: 'House Flipper VR', s: 3, y: '2020', a: 1194700 },
+  { c: 'games', t: 'The Binding of Isaac: Rebirth', s: 3, y: '2014', a: 250900 },
+  { c: 'games', t: 'Deisim', s: 3, y: '2022', a: 525680 },
+  { c: 'games', t: 'Goat Simulator 3', s: 3, y: '2024', a: 850190, img: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/850190/d7d339a57cacfaef7632bdd3b5f9e999eb7fc22d/library_600x900.jpg' },
+  { c: 'games', t: 'Marvel Rivals', s: 3, y: '2024', a: 2767030, img: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2767030/12be32a207a49ff59087a7d6a891f220a2be7e6f/library_capsule.jpg' },
+  { c: 'games', t: 'BlasterBeat', s: 3, y: '2023', a: 1575680 },
+  { c: 'games', t: 'Toilet Management Simulator', s: 3, y: '2020', a: 1361860 },
+  { c: 'games', t: 'Hollow Knight', s: 3, y: '2017', a: 367520 },
+  { c: 'games', t: 'We Become What We Behold', s: 3, y: '2019', a: 1103210 },
+  { c: 'games', t: 'DDNet', s: 3, y: '2020', a: 412220 },
+  { c: 'games', t: 'Goose Goose Duck', s: 3, y: '2021', a: 1568590 },
+  { c: 'games', t: 'Buckshot Roulette', s: 3, y: '2024', a: 2835570 },
+
+  /* Планирую */
+  { c: 'games', t: '7 Days to Die', s: 4, y: '2013', a: 251570 },
+  { c: 'games', t: 'Deep Rock Galactic', s: 4, y: '2020', a: 548430 },
+  { c: 'games', t: 'Detroit: Become Human', s: 4, y: '2020', a: 1222140 },
+  { c: 'games', t: 'Escape the Backrooms', s: 4, y: '2025', a: 1943950, img: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1943950/7f91890deae0cf3ac362bc573f2f7ef9b82dfa19/library_capsule.jpg' },
+  { c: 'games', t: 'Indigo Park', s: 4, y: '2024', a: 2504480 },
+  { c: 'games', t: 'KinitoPET', s: 4, y: '2024', a: 2075070 },
+  { c: 'games', t: 'Left 4 Dead', s: 4, y: '2008', a: 500 },
+  { c: 'games', t: "Liar's Bar", s: 4, y: '2024', a: 3097560 },
+  { c: 'games', t: 'NEEDY GIRL OVERDOSE', s: 4, y: '2022', a: 1451940 },
+  { c: 'games', t: 'POSTAL', s: 4, y: '1997', a: 232770 },
+  { c: 'games', t: 'Super Bunny Man', s: 4, y: '2023', a: 673750 },
+  { c: 'games', t: 'Survival Machine', s: 4, y: '2026', a: 1601330, img: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1601330/ea48f4efa22882c31e6954590f731c87c305e43e/library_capsule.jpg' },
+  { c: 'games', t: 'Valheim', s: 4, y: '2021', a: 892970, img: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/892970/3dee2eb67bca0660c5ca3c9e1cfbdfc1063333ba/library_capsule.jpg' },
+
+  /* --- ПЛЕЙЛИСТЫ (порядок = авторский, не сортируется)
+     desc — текст из описания плейлиста (без «Info・clarise007.github.io┃»),
+     img — обложка, link — ссылка на плейлист */
+  { c: 'playlists', t: 'Comfort', desc: 'Late Night Vibes', img: 'https://image-cdn-fa.spotifycdn.com/image/ab67706c0000da8496d6fbf05eb652943452b6cf', sq: true, link: 'https://open.spotify.com/playlist/0izgLVdhQfqDNFa7GAZNWo' },
+  { c: 'playlists', t: 'Rage', desc: 'Loud and Fast', img: 'https://image-cdn-fa.spotifycdn.com/image/ab67706c0000da8481e8f5ed55da3bd0738ed9fa', sq: true, link: 'https://open.spotify.com/playlist/3bxV563FKlsXK1MbHvxL2Q' },
+  { c: 'playlists', t: 'Glitch', desc: 'Digital Noise', img: 'https://image-cdn-fa.spotifycdn.com/image/ab67706c0000da8438855af6a1ba9a5dae46c9d6', sq: true, link: 'https://open.spotify.com/playlist/3Jcmky6SDn0SjhAN4BUnIN' },
+  { c: 'playlists', t: 'Memory', desc: 'OST from Games', img: 'https://image-cdn-fa.spotifycdn.com/image/ab67706c0000da84c2f6133b0d249670500808a3', sq: true, link: 'https://open.spotify.com/playlist/0ThIqexAPPEqFBJALaex5P' },
+  { c: 'playlists', t: 'Bloodlust', desc: 'Heavy and Ruthless', img: 'https://image-cdn-fa.spotifycdn.com/image/ab67706c0000da84fae56f4d79c0ae1261ec98b2', sq: true, link: 'https://open.spotify.com/playlist/1kPn6wffXF1BIq11Sr9zhK' },
+  { c: 'playlists', t: 'Scream', desc: 'Soft and Emotional', img: 'https://image-cdn-fa.spotifycdn.com/image/ab67706c0000da8445f7c6249388b607678ce96b', sq: true, link: 'https://open.spotify.com/playlist/7BBzfumYRUfi4IiN9XrgeR' },
+  { c: 'playlists', t: 'Loser', desc: 'Loser Core', img: 'https://image-cdn-fa.spotifycdn.com/image/ab67706c0000da8424868485714eb230c1d90d2f', sq: true, link: 'https://open.spotify.com/playlist/6b6NmJbuUqmI9v6WjIPS80' },
+  { c: 'playlists', t: 'Lo-fi', desc: 'Quiet Life', img: 'https://image-cdn-fa.spotifycdn.com/image/ab67706c0000da84f30d8c6be3e14e4b3698706f', sq: true, link: 'https://open.spotify.com/playlist/5sm87ajAgxSm9lYU6GTpui' }
+];
+
+let activeCat = CATEGORIES[0].id;
+let activeStatus = null;
+
+const tabsEl = document.getElementById('tabs');
+const cardsEl = document.getElementById('cards');
+const statusListEl = document.getElementById('statusList');
+const sidebarEl = document.querySelector('.sidebar');
+const dashboardEl = document.querySelector('.dashboard');
+const panelTitleText = document.getElementById('panelTitleText');
+
+function catById(id) {
+  return CATEGORIES.find(function (c) { return c.id === id; });
+}
+
+const collator = new Intl.Collator('ru', { sensitivity: 'base' });
+
+/* Кириллица -> латиница только для сортировки:
+   так «Кухня» встаёт рядом с K, а не отдельным блоком в конце. */
+const TRANSLIT = {
+  'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ё': 'e',
+  'ж': 'zh', 'з': 'z', 'и': 'i', 'й': 'i', 'к': 'k', 'л': 'l', 'м': 'm',
+  'н': 'n', 'о': 'o', 'п': 'p', 'р': 'r', 'с': 's', 'т': 't', 'у': 'u',
+  'ф': 'f', 'х': 'h', 'ц': 'c', 'ч': 'ch', 'ш': 'sh', 'щ': 'sch', 'ъ': '',
+  'ы': 'y', 'ь': '', 'э': 'e', 'ю': 'yu', 'я': 'ya'
+};
+
+function sortKey(title) {
+  return title.toLowerCase().replace(/[а-яё]/g, function (ch) {
+    return TRANSLIT[ch] !== undefined ? TRANSLIT[ch] : ch;
+  });
+}
+
+function itemsOf(catId) {
+  const items = MEDIA.filter(function (m) { return m.c === catId; });
+  /* у плейлистов порядок авторский — не сортируем */
+  if (catId === 'playlists') return items;
+  return items.sort(function (a, b) {
+    return collator.compare(sortKey(a.t), sortKey(b.t)) || collator.compare(a.t, b.t);
+  });
+}
+
+function steamCover(appid) {
+  return 'https://cdn.akamai.steamstatic.com/steam/apps/' + appid + '/library_600x900.jpg';
+}
+
+function steamHeader(appid) {
+  return 'https://cdn.akamai.steamstatic.com/steam/apps/' + appid + '/header.jpg';
+}
+
+function steamLink(appid) {
+  return 'https://store.steampowered.com/app/' + appid + '/';
+}
+
+function hueOf(title) {
+  let h = 0;
+  for (let i = 0; i < title.length; i++) h = (h * 31 + title.charCodeAt(i)) % 360;
+  return h;
+}
+
+function renderTabs() {
+  tabsEl.innerHTML = CATEGORIES.map(function (c) {
+    return '<button class="tab' + (c.id === activeCat ? ' active' : '') + '" data-cat="' + c.id + '">' +
+      ICONS[c.id] +
+      '<span>' + c.name + '</span>' +
+      '<span class="tab-count">' + itemsOf(c.id).length + '</span>' +
+    '</button>';
+  }).join('');
+}
+
+function renderStatuses() {
+  const cat = catById(activeCat);
+  const items = itemsOf(activeCat);
+  const counts = cat.statuses.map(function () { return 0; });
+  items.forEach(function (m) { if (counts[m.s] !== undefined) counts[m.s]++; });
+
+  sidebarEl.style.display = cat.statuses.length ? '' : 'none';
+
+  if (!cat.statuses.length) { statusListEl.innerHTML = ''; return; }
+
+  statusListEl.innerHTML =
+    '<button class="status-btn' + (activeStatus === null ? ' active' : '') + '" data-status="all">' +
+      '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>' +
+      '<span class="status-name">Все</span>' +
+      '<span class="status-count">' + items.length + '</span>' +
+    '</button>' +
+    cat.statuses.map(function (name, i) {
+      return '<button class="status-btn' + (activeStatus === i ? ' active' : '') + '" data-status="' + i + '">' +
+        '<span class="status-dot" style="background:' + STATUS_COLORS[i] + '"></span>' +
+        '<span class="status-name">' + name + '</span>' +
+        '<span class="status-count">' + counts[i] + '</span>' +
+      '</button>';
+    }).join('');
+}
+
+function renderCards() {
+  const cat = catById(activeCat);
+  panelTitleText.textContent = cat.name;
+
+  /* без статусов сайдбар скрыт — карточки и сетка занимают всю ширину */
+  const solo = !cat.statuses.length;
+  const banner = cat.id === 'games';
+  dashboardEl.classList.toggle('solo', solo);
+  cardsEl.classList.toggle('square-cards', solo);
+  cardsEl.classList.toggle('game-cards', banner);
+
+  const items = itemsOf(activeCat).filter(function (m) {
+    return activeStatus === null || m.s === activeStatus;
+  });
+
+  if (!items.length) {
+    cardsEl.innerHTML =
+      '<div class="empty" style="grid-column: 1 / -1;">' +
+        ICONS.empty +
+        '<div class="empty-title">Пока пусто</div>' +
+        '<div>Здесь появятся записи категории «' + cat.name + '»</div>' +
+      '</div>';
+    return;
+  }
+
+  cardsEl.innerHTML = items.map(function (m, i) {
+    /* у игр постер и ссылка строятся из Steam appid */
+    const img = m.img || (m.a ? steamCover(m.a) : '');
+    const href = m.link || (m.a ? steamLink(m.a) : '');
+    /* у части игр нет вертикальной обложки — берём широкую, иначе оставляем градиент */
+    const onerr = (!m.img && m.a)
+      ? ' onerror="if(this.dataset.f){this.style.visibility=\'hidden\'}else{this.dataset.f=1;this.src=\'' + steamHeader(m.a) + '\'}"'
+      : '';
+
+    const cover =
+      '<span class="cover-glyph">' + ICONS[m.c] + '</span>' +
+      '<img class="cover-img' + (m.icon ? ' is-icon' : '') + (img ? ' loaded' : '') + '"' +
+        (img ? ' src="' + img + '"' : '') + ' alt="' + m.t + '" loading="lazy"' + onerr + ' />';
+
+    const inner =
+      '<div class="media-cover" style="--hue:' + hueOf(m.t) + '">' +
+        cover +
+        (cat.statuses.length
+          ? '<span class="media-status"><span class="status-dot" style="background:' + STATUS_COLORS[m.s] + '"></span>' + cat.statuses[m.s] + '</span>'
+          : '') +
+      '</div>' +
+      '<div class="media-body">' +
+        '<div class="media-title">' + m.t + '</div>' +
+        '<div class="media-meta">' +
+          (m.desc !== undefined ? m.desc : (m.y ? '(' + m.y + ')' : cat.name)) +
+        '</div>' +
+      '</div>';
+
+    const style = ' style="animation-delay:' + Math.min(i, 8) * 30 + 'ms"';
+    const dataQ = img ? '' : ' data-q="' + (m.q || m.t) + '"';
+    const cardClass = 'media-card' + (m.sq ? ' is-square' : '') + (banner ? ' is-banner' : '');
+    return href
+      ? '<a class="' + cardClass + '" href="' + href + '" target="_blank" rel="noopener noreferrer"' + dataQ + style + '>' + inner + '</a>'
+      : '<article class="' + cardClass + '"' + dataQ +
+          (m.nolink ? '' : ' data-cat="' + m.c + '" data-name="' + m.t + '"') +
+          style + '>' + inner + '</article>';
+  }).join('');
+
+  loadCovers();
+}
+
+/* === ОБЛОЖКИ И ССЫЛКИ === */
+const infoCache = new Map();
+
+function wikiLang(title) {
+  return /[\u0400-\u04FF]/.test(title) ? 'ru' : 'en';
+}
+
+async function fetchWiki(lang, titles) {
+  const out = new Map();
+  const url = 'https://' + lang + '.wikipedia.org/w/api.php?action=query&format=json&origin=*'
+    + '&redirects=1&prop=pageimages|pageprops&piprop=thumbnail&pithumbsize=500&pilicense=any'
+    + '&titles=' + encodeURIComponent(titles.join('|'));
+  let data = null;
+  try {
+    const res = await fetch(url);
+    if (res.ok) data = await res.json();
+  } catch (e) { /* без сети останутся градиентные обложки */ }
+
+  const query = (data && data.query) || {};
+  const alias = {};
+  (query.normalized || []).forEach(function (n) { alias[n.from] = n.to; });
+  (query.redirects || []).forEach(function (n) { alias[n.from] = n.to; });
+  const pages = {};
+  Object.keys(query.pages || {}).forEach(function (k) { pages[query.pages[k].title] = query.pages[k]; });
+
+  titles.forEach(function (title) {
+    let cur = title;
+    for (let g = 0; alias[cur] && g < 5; g++) cur = alias[cur];
+    const page = pages[cur];
+    const thumb = page && page.thumbnail;
+    out.set(title, {
+      img: thumb ? thumb.source : null,
+      imgW: thumb ? thumb.width : 0,
+      imgH: thumb ? thumb.height : 0,
+      qid: page && page.pageprops ? page.pageprops.wikibase_item : null
+    });
+  });
+  return out;
+}
+
+async function fetchImdbIds(qids) {
+  const out = new Map();
+  for (let i = 0; i < qids.length; i += 80) {
+    const chunk = qids.slice(i, i + 80);
+    const query = 'SELECT ?item ?imdb WHERE { VALUES ?item { ' +
+      chunk.map(function (id) { return 'wd:' + id; }).join(' ') +
+      ' } ?item wdt:P345 ?imdb. }';
+    const url = 'https://query.wikidata.org/sparql?format=json&query=' + encodeURIComponent(query);
+    try {
+      const res = await fetch(url);
+      if (!res.ok) continue;
+      const data = await res.json();
+      ((data.results && data.results.bindings) || []).forEach(function (row) {
+        const id = row.item.value.split('/').pop();
+        out.set(id, 'https://www.imdb.com/title/' + row.imdb.value + '/');
+      });
+    } catch (e) { /* пропускаем — останется поиск по IMDb */ }
+  }
+  return out;
+}
+
+async function fetchTvmaze(name) {
+  try {
+    const res = await fetch('https://api.tvmaze.com/singlesearch/shows?q=' + encodeURIComponent(name));
+    if (!res.ok) return null;
+    const show = await res.json();
+    return {
+      img: show.image ? show.image.medium : null,
+      imdb: show.externals && show.externals.imdb
+        ? 'https://www.imdb.com/title/' + show.externals.imdb + '/'
+        : null
+    };
+  } catch (e) {
+    return null;
+  }
+}
+
+async function loadCovers() {
+  const cards = Array.prototype.slice.call(cardsEl.querySelectorAll('.media-card[data-q]'));
+  if (!cards.length) return;
+
+  const catByQuery = new Map();
+  const nameByQuery = new Map();
+  cards.forEach(function (card) {
+    if (!catByQuery.has(card.dataset.q)) catByQuery.set(card.dataset.q, card.dataset.cat);
+    if (!nameByQuery.has(card.dataset.q)) nameByQuery.set(card.dataset.q, card.dataset.name);
+  });
+  const fresh = Array.from(catByQuery.keys()).filter(function (q) { return !infoCache.has(q); });
+
+  if (fresh.length) {
+    const groups = { ru: [], en: [] };
+    fresh.forEach(function (q) { groups[wikiLang(q)].push(q); });
+
+    const found = new Map();
+    for (const lang in groups) {
+      const list = groups[lang];
+      for (let i = 0; i < list.length; i += 20) {
+        const part = await fetchWiki(lang, list.slice(i, i + 20));
+        part.forEach(function (v, k) { found.set(k, v); });
+      }
+    }
+
+    const qids = [];
+    found.forEach(function (v) { if (v.qid) qids.push(v.qid); });
+    const imdb = await fetchImdbIds(qids);
+    found.forEach(function (v) { if (v.qid && imdb.has(v.qid)) v.imdb = imdb.get(v.qid); });
+
+    // У Википедии у сериалов вместо постера часто лежит логотип (широкая картинка),
+    // поэтому сериалы и аниме, где нет вертикального постера, дозапрашиваем с TVmaze
+    const shows = fresh.filter(function (q) {
+      const cat = catByQuery.get(q);
+      if (cat !== 'series' && cat !== 'anime') return false;
+      const v = found.get(q);
+      const portrait = v && v.imgW && v.imgH && v.imgH > v.imgW * 1.05;
+      return !portrait;
+    });
+    for (let i = 0; i < shows.length; i += 5) {
+      const chunk = shows.slice(i, i + 5);
+      const res = await Promise.all(chunk.map(function (q) { return fetchTvmaze(nameByQuery.get(q)); }));
+      chunk.forEach(function (q, k) {
+        const show = res[k];
+        if (!show) return;
+        const info = found.get(q) || {};
+        if (show.img) info.img = show.img;
+        if (show.imdb) info.imdb = show.imdb;
+        found.set(q, info);
+      });
+      if (i + 5 < shows.length) await new Promise(function (r) { setTimeout(r, 2200); });
+    }
+
+    found.forEach(function (v, k) { infoCache.set(k, v); });
+  }
+
+  cards.forEach(function (card) {
+    const info = infoCache.get(card.dataset.q) || {};
+
+    const img = card.querySelector('.cover-img');
+    if (img && info.img && !img.getAttribute('src')) {
+      img.addEventListener('load', function () {
+        if (img.naturalWidth > img.naturalHeight * 1.1) img.classList.add('is-icon');
+        img.classList.add('loaded');
+      });
+      img.src = info.img;
+    }
+
+    const linked = card.dataset.cat === 'movies' || card.dataset.cat === 'series' || card.dataset.cat === 'anime';
+    if (card.tagName !== 'A' && linked) {
+      card.dataset.href = info.imdb
+        || 'https://www.imdb.com/find/?q=' + encodeURIComponent(card.dataset.name || '');
+    }
+  });
+}
+
+function renderAll() {
+  renderTabs();
+  renderStatuses();
+  renderCards();
+}
+
+tabsEl.addEventListener('click', function (e) {
+  const btn = e.target.closest('.tab');
+  if (!btn) return;
+  activeCat = btn.dataset.cat;
+  activeStatus = null;
+  renderAll();
+});
+
+statusListEl.addEventListener('click', function (e) {
+  const btn = e.target.closest('.status-btn');
+  if (!btn) return;
+  activeStatus = btn.dataset.status === 'all' ? null : Number(btn.dataset.status);
+  renderStatuses();
+  renderCards();
+});
+
+cardsEl.addEventListener('click', function (e) {
+  const card = e.target.closest('.media-card');
+  if (!card || card.tagName === 'A' || !card.dataset.href) return;
+  window.open(card.dataset.href, '_blank', 'noopener');
+});
+
+document.addEventListener('mousemove', function (e) {
+  document.documentElement.style.setProperty('--mouse-x', e.clientX + 'px');
+  document.documentElement.style.setProperty('--mouse-y', e.clientY + 'px');
+});
+
+renderAll();
+</script>
+</body>
+</html>
