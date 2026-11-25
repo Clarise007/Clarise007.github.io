@@ -174,6 +174,56 @@ border-radius: 100px;
 padding: 2px 7px;
 }
 .tab.active .tab-count { color: #fff; background: rgba(255,255,255,0.16); }
+/* === SEARCH === */
+.search-wrap {
+display: flex;
+align-items: center;
+gap: 10px;
+background: rgba(15, 15, 15, 0.6);
+backdrop-filter: blur(24px);
+-webkit-backdrop-filter: blur(24px);
+border: 1px solid rgba(255,255,255,0.08);
+border-radius: 22px;
+padding: 3px 16px;
+margin-bottom: 12px;
+transition: border-color 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.search-wrap:focus-within { border-color: rgba(255,255,255,0.22); }
+.search-wrap > svg {
+width: 17px; height: 17px;
+stroke: rgba(255,255,255,0.45); fill: none;
+stroke-width: 1.8; stroke-linecap: round;
+flex-shrink: 0;
+}
+.search-input {
+flex: 1;
+min-width: 0;
+background: transparent;
+border: 0;
+outline: none;
+color: #fff;
+font-size: 0.95rem;
+padding: 12px 0;
+}
+.search-input::placeholder { color: rgba(255,255,255,0.35); }
+.search-input::-webkit-search-cancel-button { display: none; }
+.search-clear {
+display: none;
+align-items: center;
+justify-content: center;
+width: 26px; height: 26px;
+border: 0;
+border-radius: 50%;
+background: rgba(255,255,255,0.08);
+color: rgba(255,255,255,0.7);
+cursor: pointer;
+flex-shrink: 0;
+font-size: 0.8rem;
+line-height: 1;
+transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.search-clear.visible { display: flex; }
+.search-clear:hover { background: rgba(255,255,255,0.16); color: #fff; }
 /* === DASHBOARD === */
 .dashboard {
 display: grid;
@@ -426,6 +476,12 @@ body { padding: 1rem 0.75rem; }
 <nav class="tabs" id="tabs"></nav>
 </div>
 
+<div class="search-wrap">
+<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
+<input class="search-input" id="searchInput" type="search" placeholder="Поиск по текущей категории" autocomplete="off" aria-label="Поиск по текущей категории" />
+<button class="search-clear" id="searchClear" type="button" aria-label="Очистить поиск">✕</button>
+</div>
+
 <div class="dashboard">
 <main class="panel">
 <div class="panel-title" id="panelTitle">
@@ -567,7 +623,7 @@ const MEDIA = [
   { c: 'series', t: 'Stranger Things', y: '2016', s: 0 },
   { c: 'series', t: 'The Boys', y: '2019', s: 0, q: 'The Boys (TV series)' },
   { c: 'series', t: 'The Last of Us', y: '2023', s: 2, q: 'Одни из нас (телесериал)' },
-  { c: 'series', t: 'Vlad Cool Cars', y: '2026', s: 0, img: 'https://i.ibb.co/xK9Mm8jp/Screenshot-2026-11-19-220156.png', link: 'https://www.imdb.com/title/tt49615116/' },
+  { c: 'series', t: 'Vlad Cool Cars', y: '2026', s: 0, img: 'https://m.media-amazon.com/images/M/MV5BMGUwY2NmM2ItMWM1YS00MDgyLWEwMTItZDU5ZjkzYzY0MDg0XkEyXkFqcGc@._V1_FMjpg_UX600_.jpg', link: 'https://www.imdb.com/title/tt49615116/' },
   { c: 'series', t: 'Wayne', y: '2019', s: 2, q: 'Wayne (TV series)' },
   { c: 'series', t: 'Wednesday', y: '2022', s: 0, q: 'Wednesday (TV series)' },
   { c: 'series', t: 'Welcome to Derry', y: '2025', s: 0 },
@@ -603,6 +659,7 @@ const MEDIA = [
   { c: 'games', t: 'Barro Racing', s: 0, y: '2020', a: 1307090 },
   { c: 'games', t: 'Barro T23', s: 0, y: '2023', a: 2379030 },
   { c: 'games', t: 'Cuphead', s: 0, y: '2017', a: 268910 },
+  { c: 'games', t: 'Detroit: Become Human', s: 0, y: '2020', a: 1222140 },
   { c: 'games', t: 'Escape the Backrooms', s: 0, y: '2025', a: 1943950, img: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1943950/7f91890deae0cf3ac362bc573f2f7ef9b82dfa19/library_capsule.jpg' },
   /* Fears to Fathom — все эпизоды Rayll отдельно */
   { c: 'games', t: 'Fears to Fathom - Carson House', s: 0, y: '2023', a: 2120900 },
@@ -626,6 +683,7 @@ const MEDIA = [
   { c: 'games', t: 'Milk inside a bag of milk inside a bag of milk', s: 0, y: '2020', a: 1392820 },
   { c: 'games', t: 'Milk outside a bag of milk outside a bag of milk', s: 0, y: '2021', a: 1604000 },
   { c: 'games', t: 'MiSide', s: 0, y: '2024', a: 2527500 },
+  { c: 'games', t: 'Mouthwashing', s: 0, y: '2024', a: 2475490 },
   { c: 'games', t: 'Miss Neko', s: 0, y: '2019', a: 1101450 },
   { c: 'games', t: 'Miss Neko 3', s: 0, y: '2022', a: 2022180 },
   { c: 'games', t: 'Miss Neko: Pirates', s: 0, y: '2024', a: 2695270 },
@@ -636,9 +694,10 @@ const MEDIA = [
   { c: 'games', t: 'Organized Inside', s: 0, y: '2025', a: 3609750, img: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3609750/077687066ce4244b9396fa4b47164939d91d9035/library_600x900.jpg' },
   { c: 'games', t: 'Outlast', s: 0, y: '2013', a: 238320 },
   { c: 'games', t: 'Outlast 2', s: 0, y: '2017', a: 414700 },
+  { c: 'games', t: 'PEAK', s: 0, y: '2025', a: 3527290, img: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3527290/480bd879ac737921bfa2529a6fea15961267ad21/library_600x900.jpg' },
   { c: 'games', t: 'Poppy Playtime - Chapter 1', s: 0, y: '2021', a: 1721470 },
-  { c: 'games', t: 'Poppy Playtime - Chapter 2', s: 0, y: '2022', a: 1817490, img: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1817490/a188e395ba419de1e25b458febddc3fc4852a343/capsule_616x353_2x.jpg' },
-  { c: 'games', t: 'Poppy Playtime - Chapter 3', s: 0, y: '2024', a: 2555190, img: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2555190/capsule_616x353.jpg' },
+  { c: 'games', t: 'Poppy Playtime - Chapter 2', s: 0, y: '2022', a: 1817490 },
+  { c: 'games', t: 'Poppy Playtime - Chapter 3', s: 0, y: '2024', a: 2555190 },
   { c: 'games', t: 'Poppy Playtime - Chapter 4', s: 0, y: '2025', a: 3008670, img: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3008670/f37c8d4b20246f02005c4388ea770de55386aa11/capsule_616x353_2x.jpg' },
   { c: 'games', t: 'Poppy Playtime - Chapter 5', s: 0, y: '2026', a: 4100940, img: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/4100940/d4f4792907508dd65da0df821257e1e06740d44e/capsule_616x353_2x.jpg' },
   { c: 'games', t: 'Portal', s: 0, y: '2007', a: 400 },
@@ -647,12 +706,14 @@ const MEDIA = [
   { c: 'games', t: 'Purple Place', s: 0, y: '2023', a: 1117090 },
   { c: 'games', t: 'Raft', s: 0, y: '2022', a: 648800 },
   { c: 'games', t: 'Rick and Morty: Virtual Rick-ality', s: 0, y: '2017', a: 469610 },
+  { c: 'games', t: 'RV There Yet?', s: 0, y: '2025', a: 3949040, img: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3949040/701632e4a84f8378c23fdf18ae127cb6a0f3f904/library_capsule.jpg' },
   { c: 'games', t: 'Sally Face', s: 0, y: '2016', a: 541570 },
   { c: 'games', t: 'Satisfactory', s: 0, y: '2024', a: 526870 },
   { c: 'games', t: 'Schedule I', s: 0, y: '2025', a: 3164500 },
   { c: 'games', t: 'Shave & Stuff', s: 0, y: '2024', a: 2195400 },
   { c: 'games', t: 'Slime Rancher', s: 0, y: '2017', a: 433340 },
   { c: 'games', t: 'Sons of the Forest', s: 0, y: '2024', a: 1326470 },
+  { c: 'games', t: 'Stardew Valley', s: 0, y: '2016', a: 413150 },
   { c: 'games', t: 'Storyteller', s: 0, y: '2023', a: 1624540 },
   { c: 'games', t: 'Stray', s: 0, y: '2022', a: 1332010 },
   { c: 'games', t: 'Subnautica', s: 0, y: '2018', a: 264710 },
@@ -660,9 +721,11 @@ const MEDIA = [
   { c: 'games', t: 'The Baby in Yellow', s: 0, y: '2023', a: 2291340 },
   { c: 'games', t: 'The Forest', s: 0, y: '2018', a: 242760 },
   { c: 'games', t: 'The Stanley Parable: Ultra Deluxe', s: 0, y: '2022', a: 1703340 },
+  { c: 'games', t: 'Toilet Management Simulator', s: 0, y: '2020', a: 1361860 },
   { c: 'games', t: 'Undertale', s: 0, y: '2015', a: 391540 },
   { c: 'games', t: 'Vacation Simulator', s: 0, y: '2019', a: 726830 },
   { c: 'games', t: 'Voidtrain', s: 0, y: '2025', a: 1159690, img: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1159690/4efaa1c00e0471f0e8b415b09db3f2c038ba8704/library_capsule.jpg' },
+  { c: 'games', t: 'We Become What We Behold', s: 0, y: '2019', a: 1103210 },
   { c: 'games', t: 'Youtubers Life', s: 0, y: '2017', a: 428690 },
 
   /* Прохожу */
@@ -717,7 +780,6 @@ const MEDIA = [
   { c: 'games', t: 'One-armed cook', s: 3, y: '2022', a: 1977530 },
   { c: 'games', t: 'One-armed robber', s: 3, y: '2023', a: 2551020 },
   { c: 'games', t: 'PC Building Simulator', s: 3, y: '2019', a: 621060 },
-  { c: 'games', t: 'PEAK', s: 3, y: '2025', a: 3527290, img: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3527290/480bd879ac737921bfa2529a6fea15961267ad21/library_600x900.jpg' },
   { c: 'games', t: 'People Playground', s: 3, y: '2019', a: 1118200 },
   { c: 'games', t: 'Phasmophobia', s: 3, y: '2020', a: 739630 },
   { c: 'games', t: 'POSTAL', s: 3, y: '1997', a: 232770 },
@@ -726,9 +788,7 @@ const MEDIA = [
   { c: 'games', t: 'R.E.P.O.', s: 3, y: '2025', a: 3241660 },
   { c: 'games', t: 'Ranch Simulator', s: 3, y: '2023', a: 1119730 },
   { c: 'games', t: 'Rec Room', s: 3, y: '2021', a: 471710 },
-  { c: 'games', t: 'RV There Yet?', s: 3, y: '2025', a: 3949040, img: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3949040/701632e4a84f8378c23fdf18ae127cb6a0f3f904/library_capsule.jpg' },
   { c: 'games', t: 'Sky: Children of the Light', s: 3, y: '2024', a: 2325290 },
-  { c: 'games', t: 'Stardew Valley', s: 3, y: '2016', a: 413150 },
   { c: 'games', t: 'Streamer Life Simulator 2', s: 3, y: '2026', a: 2890830 },
   { c: 'games', t: 'Stumble Guys', s: 3, y: '2021', a: 1677740 },
   { c: 'games', t: 'Supermarket Simulator', s: 3, y: '2025', a: 2670630 },
@@ -739,14 +799,11 @@ const MEDIA = [
   { c: 'games', t: 'The Headliners', s: 3, y: '2025', a: 3059070, img: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3059070/eafcfab6ae1fd425c04cf41fd6617060fd3ac9b6/library_600x900.jpg' },
   { c: 'games', t: 'The Sims 4', s: 3, y: '2014', a: 1222670 },
   { c: 'games', t: 'Tiny Eden', s: 3, y: '2026', a: 3375110, img: 'https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3375110/489df5536cd98813184b2c5bb1b48298d1b990e5/library_capsule.jpg' },
-  { c: 'games', t: 'Toilet Management Simulator', s: 3, y: '2020', a: 1361860 },
-  { c: 'games', t: 'Valorant', s: 3, y: '2020', link: 'https://playvalorant.com/' },
-  { c: 'games', t: 'We Become What We Behold', s: 3, y: '2019', a: 1103210 },
+  { c: 'games', t: 'Valorant', s: 3, y: '2020', img: 'https://wiki.leagueoflegends.com/en-us/Special:FilePath/Valorant_Cover_01.jpg', link: 'https://playvalorant.com/' },
   { c: 'games', t: 'WooLoop', s: 3, y: '2023', a: 1878910 },
 
   /* Планирую */
   { c: 'games', t: '7 Days to Die', s: 4, y: '2013', a: 251570 },
-  { c: 'games', t: 'Detroit: Become Human', s: 4, y: '2020', a: 1222140 },
   { c: 'games', t: "Liar's Bar", s: 4, y: '2024', a: 3097560 },
   { c: 'games', t: 'Poppy Playtime - Chapter 6', s: 4, y: '2027' },
   { c: 'games', t: 'Super Bunny Man', s: 4, y: '2023', a: 673750 },
@@ -768,10 +825,13 @@ const MEDIA = [
 
 let activeCat = CATEGORIES[0].id;
 let activeStatus = null;
+let query = '';
 
 const tabsEl = document.getElementById('tabs');
 const cardsEl = document.getElementById('cards');
 const statusListEl = document.getElementById('statusList');
+const searchInputEl = document.getElementById('searchInput');
+const searchClearEl = document.getElementById('searchClear');
 const sidebarEl = document.querySelector('.sidebar');
 const dashboardEl = document.querySelector('.dashboard');
 const panelTitleText = document.getElementById('panelTitleText');
@@ -807,8 +867,18 @@ function itemsOf(catId) {
   });
 }
 
+/* Постеры Steam по приоритету: вертикальный 600x900 (2x, затем 1x),
+   вертикальный hero capsule, и только в крайнем случае — широкий header */
 function steamCover(appid) {
+  return 'https://cdn.akamai.steamstatic.com/steam/apps/' + appid + '/library_600x900_2x.jpg';
+}
+
+function steamCover1x(appid) {
   return 'https://cdn.akamai.steamstatic.com/steam/apps/' + appid + '/library_600x900.jpg';
+}
+
+function steamHero(appid) {
+  return 'https://cdn.akamai.steamstatic.com/steam/apps/' + appid + '/hero_capsule.jpg';
 }
 
 function steamHeader(appid) {
@@ -860,9 +930,17 @@ function renderStatuses() {
     }).join('');
 }
 
+/* === ПОИСК (только в пределах активной категории) === */
+function normText(str) {
+  return str.toLowerCase().replace(/ё/g, 'е');
+}
+
 function renderCards() {
+  const searching = query.trim().length > 0;
+  const needle = normText(query.trim());
   const cat = catById(activeCat);
-  panelTitleText.textContent = cat.name;
+  panelTitleText.textContent = searching ? 'Поиск · ' + cat.name : cat.name;
+  searchInputEl.placeholder = 'Поиск: ' + cat.name.toLowerCase();
 
   /* без статусов сайдбар скрыт — карточки и сетка занимают всю ширину */
   const solo = !cat.statuses.length;
@@ -872,49 +950,58 @@ function renderCards() {
   cardsEl.classList.toggle('game-cards', banner);
 
   const items = itemsOf(activeCat).filter(function (m) {
-    return activeStatus === null || m.s === activeStatus;
+    if (activeStatus !== null && m.s !== activeStatus) return false;
+    return !needle || normText(m.t).indexOf(needle) !== -1;
   });
 
   if (!items.length) {
-    cardsEl.innerHTML =
-      '<div class="empty" style="grid-column: 1 / -1;">' +
-        ICONS.empty +
-        '<div class="empty-title">Пока пусто</div>' +
-        '<div>Здесь появятся записи категории «' + cat.name + '»</div>' +
-      '</div>';
+    cardsEl.innerHTML = searching
+      ? '<div class="empty" style="grid-column: 1 / -1;">' +
+          ICONS.empty +
+          '<div class="empty-title">Ничего не найдено</div>' +
+          '<div>Попробуйте другое название</div>' +
+        '</div>'
+      : '<div class="empty" style="grid-column: 1 / -1;">' +
+          ICONS.empty +
+          '<div class="empty-title">Пока пусто</div>' +
+          '<div>Здесь появятся записи категории «' + cat.name + '»</div>' +
+        '</div>';
     return;
   }
 
   cardsEl.innerHTML = items.map(function (m, i) {
-    /* у игр постер и ссылка строятся из Steam appid */
-    const img = m.img || (m.a ? steamCover(m.a) : '');
+    const mcat = catById(m.c);
+    /* у игр — цепочка постеров по приоритету (см. loadGameCovers) */
+    const poster = m.a ? [
+      m.img,
+      steamCover(m.a), steamCover1x(m.a), steamHero(m.a), steamHeader(m.a)
+    ].filter(Boolean) : null;
+    const img = poster ? '' : (m.img || '');
     const href = m.link || (m.a ? steamLink(m.a) : '');
-    /* у части игр нет вертикальной обложки — берём широкую, иначе оставляем градиент */
-    const onerr = (!m.img && m.a)
-      ? ' onerror="if(this.dataset.f){this.style.visibility=\'hidden\'}else{this.dataset.f=1;this.src=\'' + steamHeader(m.a) + '\'}"'
-      : '';
 
     const cover =
       '<span class="cover-glyph">' + ICONS[m.c] + '</span>' +
       '<img class="cover-img' + (m.icon ? ' is-icon' : '') + (img ? ' loaded' : '') + '"' +
-        (img ? ' src="' + img + '"' : '') + ' alt="' + m.t + '" loading="lazy"' + onerr + ' />';
+        (img ? ' src="' + img + '"' : '') +
+        (poster ? ' data-poster=\'' + JSON.stringify(poster) + '\'' : '') +
+        ' alt="' + m.t + '" loading="lazy" />';
+
+    const meta = m.desc !== undefined ? m.desc : (m.y ? '(' + m.y + ')' : mcat.name);
 
     const inner =
       '<div class="media-cover" style="--hue:' + hueOf(m.t) + '">' +
         cover +
-        (cat.statuses.length
-          ? '<span class="media-status"><span class="status-dot" style="background:' + STATUS_COLORS[m.s] + '"></span>' + cat.statuses[m.s] + '</span>'
+        (mcat.statuses.length
+          ? '<span class="media-status"><span class="status-dot" style="background:' + STATUS_COLORS[m.s] + '"></span>' + mcat.statuses[m.s] + '</span>'
           : '') +
       '</div>' +
       '<div class="media-body">' +
         '<div class="media-title">' + m.t + '</div>' +
-        '<div class="media-meta">' +
-          (m.desc !== undefined ? m.desc : (m.y ? '(' + m.y + ')' : cat.name)) +
-        '</div>' +
+        '<div class="media-meta">' + meta + '</div>' +
       '</div>';
 
     const style = ' style="animation-delay:' + Math.min(i, 8) * 30 + 'ms"';
-    const dataQ = img ? '' : ' data-q="' + (m.q || m.t) + '"';
+    const dataQ = (img || poster) ? '' : ' data-q="' + (m.q || m.t) + '"';
     const cardClass = 'media-card' + (m.sq ? ' is-square' : '') + (banner ? ' is-banner' : '');
     return href
       ? '<a class="' + cardClass + '" href="' + href + '" target="_blank" rel="noopener noreferrer"' + dataQ + style + '>' + inner + '</a>'
@@ -923,7 +1010,28 @@ function renderCards() {
           style + '>' + inner + '</article>';
   }).join('');
 
+  loadGameCovers();
   loadCovers();
+}
+
+/* === ПОСТЕРЫ ИГР: перебор вариантов === */
+function loadGameCovers() {
+  Array.prototype.forEach.call(cardsEl.querySelectorAll('img.cover-img[data-poster]'), function (img) {
+    let list = [];
+    try { list = JSON.parse(img.dataset.poster); } catch (e) { list = []; }
+    let step = 0;
+
+    function next() {
+      if (step >= list.length) { img.style.visibility = 'hidden'; return; }
+      img.src = list[step++];
+    }
+
+    img.addEventListener('load', function () {
+      img.classList.add('loaded');
+    });
+    img.addEventListener('error', next);
+    next();
+  });
 }
 
 /* === ОБЛОЖКИ И ССЫЛКИ === */
@@ -1090,7 +1198,37 @@ tabsEl.addEventListener('click', function (e) {
   if (!btn) return;
   activeCat = btn.dataset.cat;
   activeStatus = null;
+  query = '';
+  searchInputEl.value = '';
+  searchClearEl.classList.remove('visible');
   renderAll();
+});
+
+searchInputEl.addEventListener('input', function () {
+  query = searchInputEl.value;
+  activeStatus = null;
+  searchClearEl.classList.toggle('visible', query.length > 0);
+  renderStatuses();
+  renderCards();
+});
+
+searchInputEl.addEventListener('keydown', function (e) {
+  if (e.key !== 'Escape') return;
+  searchInputEl.value = '';
+  query = '';
+  activeStatus = null;
+  searchClearEl.classList.remove('visible');
+  renderStatuses();
+  renderCards();
+});
+
+searchClearEl.addEventListener('click', function () {
+  searchInputEl.value = '';
+  query = '';
+  searchClearEl.classList.remove('visible');
+  renderStatuses();
+  renderCards();
+  searchInputEl.focus();
 });
 
 statusListEl.addEventListener('click', function (e) {
